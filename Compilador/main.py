@@ -20,7 +20,7 @@ pg.parse()
 parser = pg.get_parser()
 parser.parse(tokens).eval()
 
-"""
+
 codegen.create_ir()
 codegen.save_ir("output.ll")
-"""
+
