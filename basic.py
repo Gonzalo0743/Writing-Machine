@@ -124,7 +124,7 @@ TT_NEWLINE		= 'NEWLINE'
 TT_EOF				= 'EOF'
 
 KEYWORDS = [
-  'VAR',
+  'def',
   'AND',
   'OR',
   'NOT',
@@ -640,14 +640,23 @@ class Parser:
     if res.error:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Expected 'RETURN', 'CONTINUE', 'BREAK', 'VAR', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+        "Expected 'RETURN', 'CONTINUE', 'BREAK', 'def', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
       ))
     return res.success(expr)
 
   def expr(self):
     res = ParseResult()
 
-    if self.current_tok.matches(TT_KEYWORD, 'VAR'):
+    if self.current_tok.matches(TT_KEYWORD, 'def'):
+      res.register_advancement()
+      self.advance()
+
+      if self.current_tok.type != TT_LPAREN:
+        return res.failure(InvalidSyntaxError(
+          self.current_tok.pos_start, self.current_tok.pos_end,
+          "Expected '('"
+        ))
+
       res.register_advancement()
       self.advance()
 
@@ -661,15 +670,25 @@ class Parser:
       res.register_advancement()
       self.advance()
 
-      if self.current_tok.type != TT_EQ:
+      if self.current_tok.type != TT_COMMA:
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
-          "Expected '='"
+          "Expected ','"
         ))
 
       res.register_advancement()
       self.advance()
       expr = res.register(self.expr())
+
+      if self.current_tok.type != TT_RPAREN:
+        return res.failure(InvalidSyntaxError(
+          self.current_tok.pos_start, self.current_tok.pos_end,
+          "Expected ')'"
+        ))
+
+      res.register_advancement()
+      self.advance()
+
       if res.error: return res
       return res.success(VarAssignNode(var_name, expr))
 
@@ -678,7 +697,7 @@ class Parser:
     if res.error:
       return res.failure(InvalidSyntaxError(
         self.current_tok.pos_start, self.current_tok.pos_end,
-        "Expected 'VAR', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+        "Expected 'def', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
       ))
 
     return res.success(node)
@@ -745,7 +764,7 @@ class Parser:
         if res.error:
           return res.failure(InvalidSyntaxError(
             self.current_tok.pos_start, self.current_tok.pos_end,
-            "Expected ')', 'VAR', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+            "Expected ')', 'def', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
           ))
 
         while self.current_tok.type == TT_COMMA:
@@ -852,7 +871,7 @@ class Parser:
       if res.error:
         return res.failure(InvalidSyntaxError(
           self.current_tok.pos_start, self.current_tok.pos_end,
-          "Expected ']', 'VAR', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
+          "Expected ']', 'def', 'IF', 'FOR', 'WHILE', 'FUN', int, float, identifier, '+', '-', '(', '[' or 'NOT'"
         ))
 
       while self.current_tok.type == TT_COMMA:
@@ -1854,6 +1873,28 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_run.arg_names = ["fn"]
 
+#RRRR
+  def execute_sum(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value2")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+    #sumResult = value1.added_to(value2)
+    return RTResult().success(Number.null)
+  execute_sum.arg_names = ["value1", "value2"]
+
 BuiltInFunction.print       = BuiltInFunction("print")
 BuiltInFunction.print_ret   = BuiltInFunction("print_ret")
 BuiltInFunction.input       = BuiltInFunction("input")
@@ -1866,8 +1907,9 @@ BuiltInFunction.is_function = BuiltInFunction("is_function")
 BuiltInFunction.append      = BuiltInFunction("append")
 BuiltInFunction.pop         = BuiltInFunction("pop")
 BuiltInFunction.extend      = BuiltInFunction("extend")
-BuiltInFunction.len					= BuiltInFunction("len")
-BuiltInFunction.run					= BuiltInFunction("run")
+BuiltInFunction.len		    = BuiltInFunction("len")
+BuiltInFunction.run			= BuiltInFunction("run")
+BuiltInFunction.sum         = BuiltInFunction("sum")
 
 #######################################
 # CONTEXT
@@ -2179,6 +2221,7 @@ global_symbol_table.set("POP", BuiltInFunction.pop)
 global_symbol_table.set("EXTEND", BuiltInFunction.extend)
 global_symbol_table.set("LEN", BuiltInFunction.len)
 global_symbol_table.set("RUN", BuiltInFunction.run)
+global_symbol_table.set("SUM", BuiltInFunction.sum)
 
 def run(fn, text):
   # Generate tokens
