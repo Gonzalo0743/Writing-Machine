@@ -412,6 +412,7 @@ class BinOpNode:
     self.op_tok = op_tok
     self.right_node = right_node
 
+
     self.pos_start = self.left_node.pos_start
     self.pos_end = self.right_node.pos_end
 
@@ -1445,49 +1446,49 @@ class Number(Value):
 
   def get_comparison_eq(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value == other.value)).set_context(self.context), None
+      return Number(bool(self.value == other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
   def get_comparison_ne(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value != other.value)).set_context(self.context), None
+      return Number(bool(self.value != other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
   def get_comparison_lt(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value < other.value)).set_context(self.context), None
+      return Number(bool(self.value < other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
   def get_comparison_gt(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value > other.value)).set_context(self.context), None
+      return Number(bool(self.value > other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
   def get_comparison_lte(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value <= other.value)).set_context(self.context), None
+      return Number(bool(self.value <= other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
   def get_comparison_gte(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value >= other.value)).set_context(self.context), None
+      return Number(bool(self.value >= other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
   def anded_by(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value and other.value)).set_context(self.context), None
+      return Number(bool(self.value and other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
   def ored_by(self, other):
     if isinstance(other, Number):
-      return Number(int(self.value or other.value)).set_context(self.context), None
+      return Number(bool(self.value or other.value)).set_context(self.context), None
     else:
       return None, Value.illegal_operation(self, other)
 
@@ -1891,8 +1892,8 @@ class BuiltInFunction(BaseFunction):
         "Second argument must be number",
         exec_ctx
       ))
-    #sumResult = value1.added_to(value2)
-    return RTResult().success(Number.null)
+    sumResult = value1.added_to(value2)
+    return RTResult().success(sumResult)
   execute_sum.arg_names = ["value1", "value2"]
 
 BuiltInFunction.print       = BuiltInFunction("print")

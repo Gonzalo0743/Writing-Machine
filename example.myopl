@@ -30,7 +30,7 @@
 #	PRINT(join(map(["l", "sp"], oopify), ", "))
 #END
 
-def(rara,SUM(2,3))
+def(rara,4)
 def(rar,3)
 POP([1,2,3,4],3)
 PRINT(rara)
