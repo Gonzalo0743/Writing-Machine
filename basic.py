@@ -1882,7 +1882,7 @@ class BuiltInFunction(BaseFunction):
     if not isinstance(value1, Number):
       return RTResult().failure(RTError(
         self.pos_start, self.pos_end,
-        "Second argument must be number",
+        "First argument must be number",
         exec_ctx
       ))
 
@@ -1892,8 +1892,12 @@ class BuiltInFunction(BaseFunction):
         "Second argument must be number",
         exec_ctx
       ))
-    sumResult = value1.added_to(value2)
-    return RTResult().success(sumResult)
+
+    "Number(self.value + other.value).set_context(self.context)"
+
+    v = value1.added_to(value2)
+
+    return RTResult().success(Number(v[0]))
   execute_sum.arg_names = ["value1", "value2"]
 
 BuiltInFunction.print       = BuiltInFunction("print")

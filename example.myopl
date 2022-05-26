@@ -30,7 +30,9 @@
 #	PRINT(join(map(["l", "sp"], oopify), ", "))
 #END
 
-def(rara,4)
-def(rar,3)
-POP([1,2,3,4],3)
-PRINT(rara)
+#def(rara,4)
+#def(rar,3)
+#POP([1,2,3,4],3)
+#PRINT(rara)
+VAR list = [1]
+
