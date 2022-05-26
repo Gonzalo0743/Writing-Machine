@@ -1874,7 +1874,7 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number.null)
   execute_run.arg_names = ["fn"]
 
-#RRRR
+#OPERACIONES CREADAS
   def execute_sum(self, exec_ctx):
     value1 = exec_ctx.symbol_table.get("value1")
     value2 = exec_ctx.symbol_table.get("value2")
@@ -1892,13 +1892,147 @@ class BuiltInFunction(BaseFunction):
         "Second argument must be number",
         exec_ctx
       ))
-
-    "Number(self.value + other.value).set_context(self.context)"
-
     v = value1.added_to(value2)
 
     return RTResult().success(Number(v[0]))
   execute_sum.arg_names = ["value1", "value2"]
+
+  def execute_substr(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value2")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+    v = value1.subbed_by(value2)
+
+    return RTResult().success(Number(v[0]))
+  execute_substr.arg_names = ["value1", "value2"]
+
+  def execute_mult(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value2")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+    v = value1.multed_by(value2)
+
+    return RTResult().success(Number(v[0]))
+  execute_mult.arg_names = ["value1", "value2"]
+
+  def execute_div(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value2")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+    v = value1.dived_by(value2)
+
+    return RTResult().success(Number(v[0]))
+  execute_div.arg_names = ["value1", "value2"]
+
+  def execute_equal(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value2")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+    v = value1.get_comparison_eq(value2)
+
+    return RTResult().success(Number(v[0]))
+  execute_equal.arg_names = ["value1", "value2"]
+
+  def execute_smaller(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value2")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+    v = value1.get_comparison_lt(value2)
+
+    return RTResult().success(Number(v[0]))
+  execute_smaller.arg_names = ["value1", "value2"]
+
+  def execute_greater(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value2")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "Second argument must be number",
+        exec_ctx
+      ))
+    v = value1.get_comparison_gt(value2)
+
+    return RTResult().success(Number(v[0]))
+  execute_greater.arg_names = ["value1", "value2"]
+
+
+
+
+
 
 BuiltInFunction.print       = BuiltInFunction("print")
 BuiltInFunction.print_ret   = BuiltInFunction("print_ret")
@@ -1915,6 +2049,14 @@ BuiltInFunction.extend      = BuiltInFunction("extend")
 BuiltInFunction.len		    = BuiltInFunction("len")
 BuiltInFunction.run			= BuiltInFunction("run")
 BuiltInFunction.sum         = BuiltInFunction("sum")
+BuiltInFunction.substr         = BuiltInFunction("substr")
+BuiltInFunction.mult         = BuiltInFunction("mult")
+BuiltInFunction.div         = BuiltInFunction("div")
+BuiltInFunction.equal         = BuiltInFunction("equal")
+BuiltInFunction.smaller         = BuiltInFunction("smaller")
+BuiltInFunction.greater         = BuiltInFunction("greater")
+#BuiltInFunction.anded         = BuiltInFunction("and")
+#BuiltInFunction.ored         = BuiltInFunction("or")
 
 #######################################
 # CONTEXT
@@ -2227,6 +2369,15 @@ global_symbol_table.set("EXTEND", BuiltInFunction.extend)
 global_symbol_table.set("LEN", BuiltInFunction.len)
 global_symbol_table.set("RUN", BuiltInFunction.run)
 global_symbol_table.set("SUM", BuiltInFunction.sum)
+global_symbol_table.set("SUBSTR", BuiltInFunction.substr)
+global_symbol_table.set("MULT", BuiltInFunction.mult)
+global_symbol_table.set("DIV", BuiltInFunction.div)
+global_symbol_table.set("EQUAL", BuiltInFunction.equal)
+global_symbol_table.set("SMALLER", BuiltInFunction.smaller)
+global_symbol_table.set("GREATER", BuiltInFunction.greater)
+#global_symbol_table.set("AND", BuiltInFunction.anded)
+#global_symbol_table.set("OR", BuiltInFunction.ored)
+
 
 def run(fn, text):
   # Generate tokens
