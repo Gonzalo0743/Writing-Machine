@@ -7,6 +7,7 @@ from strings_with_arrows import *
 import string
 import os
 import math
+import random
 
 #######################################
 # CONSTANTS
@@ -1407,6 +1408,12 @@ class Number(Value):
     super().__init__()
     self.value = value
 
+  def random(self):
+    if isinstance(self, Number):
+      return Number(random.randint(0,self.value)).set_context(self.context), None
+    else:
+      return None, Value.illegal_operation(self)
+
   def added_to(self, other):
     if isinstance(other, Number):
       return Number(self.value + other.value).set_context(self.context), None
@@ -2029,6 +2036,21 @@ class BuiltInFunction(BaseFunction):
     return RTResult().success(Number(v[0]))
   execute_greater.arg_names = ["value1", "value2"]
 
+  def execute_random(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+
+    if not isinstance(value1, Number):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "First argument must be number",
+        exec_ctx
+      ))
+
+    v = value1.random()
+
+    return RTResult().success(Number(v[0]))
+  execute_random.arg_names = ["value1"]
+
 
 
 
@@ -2055,6 +2077,7 @@ BuiltInFunction.div         = BuiltInFunction("div")
 BuiltInFunction.equal         = BuiltInFunction("equal")
 BuiltInFunction.smaller         = BuiltInFunction("smaller")
 BuiltInFunction.greater         = BuiltInFunction("greater")
+BuiltInFunction.random         = BuiltInFunction("random")
 #BuiltInFunction.anded         = BuiltInFunction("and")
 #BuiltInFunction.ored         = BuiltInFunction("or")
 
@@ -2375,6 +2398,7 @@ global_symbol_table.set("DIV", BuiltInFunction.div)
 global_symbol_table.set("EQUAL", BuiltInFunction.equal)
 global_symbol_table.set("SMALLER", BuiltInFunction.smaller)
 global_symbol_table.set("GREATER", BuiltInFunction.greater)
+global_symbol_table.set("RANDOM", BuiltInFunction.random)
 #global_symbol_table.set("AND", BuiltInFunction.anded)
 #global_symbol_table.set("OR", BuiltInFunction.ored)
 
