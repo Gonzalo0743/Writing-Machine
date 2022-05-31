@@ -2055,26 +2055,57 @@ class BuiltInFunction(BaseFunction):
 
 
 ###Funciones Pyfirmata
-  def execute_posx(self, exec_ctx):
+  def execute_continueR(self, exec_ctx):
     value1 = exec_ctx.symbol_table.get("value1")
 
-    if not isinstance(value1, Number):
+    if not isinstance(value1, Value):
       return RTResult().failure(RTError(
         self.pos_start, self.pos_end,
-        "First argument must be number",
+        "The argument must be number",
         exec_ctx
       ))
-    return servo.move_servo(value1)
+    return ContinueRight(value1)
 
-  execute_posx.arg_names = ["value1"]
+  execute_continueR.arg_names = ["value1"]
 
+  def execute_continueL(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
 
+    if not isinstance(value1, Value):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "The argument must be number",
+        exec_ctx
+      ))
+    return ContinueLeft(value1)
 
+  execute_continueL.arg_names = ["value1"]
 
+  def execute_continueU(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
 
+    if not isinstance(value1, Value):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "The argument must be number",
+        exec_ctx
+      ))
+    return ContinueUp(value1)
 
+  execute_continueU.arg_names = ["value1"]
 
+  def execute_continueD(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
 
+    if not isinstance(value1, Value):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "The argument must be number",
+        exec_ctx
+      ))
+    return ContinueDown(value1)
+
+  execute_continueD.arg_names = ["value1"]
 
 
 
@@ -2100,7 +2131,11 @@ BuiltInFunction.equal         = BuiltInFunction("equal")
 BuiltInFunction.smaller         = BuiltInFunction("smaller")
 BuiltInFunction.greater         = BuiltInFunction("greater")
 BuiltInFunction.random         = BuiltInFunction("random")
-BuiltInFunction.posx         = BuiltInFunction("posx")
+
+BuiltInFunction.execute_continueR         = BuiltInFunction("continuer")
+BuiltInFunction.execute_continueL         = BuiltInFunction("continuel")
+BuiltInFunction.execute_continueU         = BuiltInFunction("continueu")
+BuiltInFunction.execute_continueD         = BuiltInFunction("continued")
 
 
 #######################################
@@ -2422,7 +2457,10 @@ global_symbol_table.set("SMALLER", BuiltInFunction.smaller)
 global_symbol_table.set("GREATER", BuiltInFunction.greater)
 global_symbol_table.set("RANDOM", BuiltInFunction.random)
 
-global_symbol_table.set("PosX", BuiltInFunction.posx)
+global_symbol_table.set("ContinueRight", BuiltInFunction.ContinueRight)
+global_symbol_table.set("ContinueLeft", BuiltInFunction.ContinueLeft)
+global_symbol_table.set("ContinueUp", BuiltInFunction.ContinueUp)
+global_symbol_table.set("ContinueDown", BuiltInFunction.ContinueDown)
 
 
 
