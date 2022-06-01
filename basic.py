@@ -2064,7 +2064,7 @@ class BuiltInFunction(BaseFunction):
         "The argument must be number",
         exec_ctx
       ))
-    return ContinueRight(value1)
+    return servo.continueRight(value1)
 
   execute_continueR.arg_names = ["value1"]
 
@@ -2077,7 +2077,7 @@ class BuiltInFunction(BaseFunction):
         "The argument must be number",
         exec_ctx
       ))
-    return ContinueLeft(value1)
+    return servo.continueLeft(value1)
 
   execute_continueL.arg_names = ["value1"]
 
@@ -2090,7 +2090,7 @@ class BuiltInFunction(BaseFunction):
         "The argument must be number",
         exec_ctx
       ))
-    return ContinueUp(value1)
+    return servo.continueUp(value1)
 
   execute_continueU.arg_names = ["value1"]
 
@@ -2103,9 +2103,56 @@ class BuiltInFunction(BaseFunction):
         "The argument must be number",
         exec_ctx
       ))
-    return ContinueDown(value1)
+    return servo.continueDown(value1)
 
   execute_continueD.arg_names = ["value1"]
+
+  def execute_posx(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+
+    if not isinstance(value1, Value):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "The argument must be number",
+        exec_ctx
+      ))
+    return servo.posX(value1)
+
+  execute_posx.arg_names = ["value1"]
+
+  def execute_posy(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+
+    if not isinstance(value1, Value):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "The argument must be number",
+        exec_ctx
+      ))
+    return servo.posY(value1)
+
+  execute_posy.arg_names = ["value1"]
+
+  def execute_pos(self, exec_ctx):
+    value1 = exec_ctx.symbol_table.get("value1")
+    value2 = exec_ctx.symbol_table.get("value1")
+
+    if not isinstance(value1, Value):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "The first argument must be number",
+        exec_ctx
+      ))
+
+    if not isinstance(value2, Value):
+      return RTResult().failure(RTError(
+        self.pos_start, self.pos_end,
+        "The second argument must be number",
+        exec_ctx
+      ))
+    return servo.pos(value1,value2)
+
+  execute_pos.arg_names = ["value1","value2"]
 
 
 
@@ -2136,6 +2183,9 @@ BuiltInFunction.execute_continueR         = BuiltInFunction("continuer")
 BuiltInFunction.execute_continueL         = BuiltInFunction("continuel")
 BuiltInFunction.execute_continueU         = BuiltInFunction("continueu")
 BuiltInFunction.execute_continueD         = BuiltInFunction("continued")
+BuiltInFunction.execute_posx         = BuiltInFunction("posx")
+BuiltInFunction.execute_posy         = BuiltInFunction("posy")
+BuiltInFunction.execute_pos         = BuiltInFunction("pos")
 
 
 #######################################
@@ -2461,6 +2511,8 @@ global_symbol_table.set("ContinueRight", BuiltInFunction.ContinueRight)
 global_symbol_table.set("ContinueLeft", BuiltInFunction.ContinueLeft)
 global_symbol_table.set("ContinueUp", BuiltInFunction.ContinueUp)
 global_symbol_table.set("ContinueDown", BuiltInFunction.ContinueDown)
+global_symbol_table.set("PosX", BuiltInFunction.PosX)
+global_symbol_table.set("Pos", BuiltInFunction.Pos)
 
 
 
