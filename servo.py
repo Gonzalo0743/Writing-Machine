@@ -9,7 +9,7 @@ posAxisX = 0
 posAxisY = 0
 
 global pinX, pinY
-units = 5
+
 
 board = pyfirmata.Arduino('COM3')
 
