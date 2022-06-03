@@ -1444,6 +1444,12 @@ class Number(Value):
         else:
             return None, Value.illegal_operation(self)
 
+    def continueRight(self):
+        if isinstance(self, Number):
+            return servo.continueRight(self.value)
+        else:
+            return None, Value.illegal_operation(self)
+
     def added_to(self, other):
         if isinstance(other, Number):
             return Number(self.value + other.value).set_context(self.context), None
@@ -2120,7 +2126,7 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return servo.continueRight(value1)
+        return Number.continueRight(value1)
 
     execute_continueRight.arg_names = ["value1"]
 
@@ -2159,7 +2165,7 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return servo.continueDown(value1)
+        return servo.continueDown(Number(value1))
 
     execute_continueDown.arg_names = ["value1"]
 

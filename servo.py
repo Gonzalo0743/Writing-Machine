@@ -8,6 +8,20 @@ noSpeed = 90
 posAxisX = 0
 posAxisY = 0
 
+global pinX, pinY
+units = 5
+
+board = pyfirmata.Arduino('COM3')
+
+iter8 = pyfirmata.util.Iterator(board)
+iter8.start()
+
+#Cambiar
+pinX = board.get_pin('d:10:s')
+pinY = board.get_pin('d:9:s')
+pinX.write(90)
+pinY.write(90)
+
 # Pos(X,Y):::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 def pos(x, y):
     global posAxisX, posAxisY
@@ -81,18 +95,6 @@ def continueDown(units):
     return
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
-def main():
-    global pinX, pinY
-    units = 5
 
-    board = pyfirmata.Arduino('COM3')
 
-    iter8 = pyfirmata.util.Iterator(board)
-    iter8.start()
 
-    #Cambiar
-    pinX = board.get_pin('d:10:s')
-    pinY = board.get_pin('d:9:s')
-    continueRight(units)
-
-#main()
