@@ -1,9 +1,19 @@
 import basic
+from tkinter import *
 
-while True:
-	text = input('WritingMachine > ')
-	if text.strip() == "": continue
-	result, error = basic.run('<stdin>', text)
+alive = True
+
+
+while alive:
+	# text = input('WritingMachine > ')
+	# if text.strip() == "": continue
+	input_memory = open("memory.txt", "r")
+	file = input_memory.read()
+
+	# file = 'example.myopl'
+	comand = f'RUN("{file}")'
+
+	result, error = basic.run(file, comand)
 
 	if error:
 		print(error.as_string())
@@ -12,3 +22,5 @@ while True:
 			print(repr(result.elements[0]))
 		else:
 			print(repr(result))
+
+	alive = False
