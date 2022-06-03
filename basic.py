@@ -1446,8 +1446,7 @@ class Number(Value):
 
     def continueRight(self):
         if isinstance(self, Number):
-            self.value.set_context(self.context)
-            return servo.continueRight(self.value)
+            return servo.continueRight(self.value).set_context(self.context)
         else:
             return None, Value.illegal_operation(self)
 
