@@ -1444,9 +1444,11 @@ class Number(Value):
         else:
             return None, Value.illegal_operation(self)
 
+    #Operaciones pyfirmata
     def continueRight(self):
         if isinstance(self, Number):
-            return servo.continueRight(self.value).set_context(self.context)
+            Number(self.value).set_context(self.context) , None
+            return servo.continueRight(self.value)
         else:
             return None, Value.illegal_operation(self)
 
@@ -1468,6 +1470,25 @@ class Number(Value):
         else:
             return None, Value.illegal_operation(self)
 
+    def posx(self):
+        if isinstance(self, Number):
+            return servo.posx(self.value)
+        else:
+            return None, Value.illegal_operation(self)
+
+    def posy(self):
+        if isinstance(self, Number):
+            return servo.posy(self.value)
+        else:
+            return None, Value.illegal_operation(self)
+
+    def pos(self, other):
+        if isinstance(other, Number):
+            return servo.pos(self.value,other.value)
+        else:
+            return None, Value.illegal_operation(self)
+
+    #Operaciones matemáticas
     def added_to(self, other):
         if isinstance(other, Number):
             return Number(self.value + other.value).set_context(self.context), None
@@ -2157,7 +2178,7 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return servo.continueLeft(value1)
+        return Number.continueLeft(value1)
 
     execute_continueLeft.arg_names = ["value1"]
 
@@ -2170,7 +2191,7 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return servo.continueUp(value1)
+        return Number.continueUp(value1)
 
     execute_continueUp.arg_names = ["value1"]
 
@@ -2183,7 +2204,7 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return servo.continueDown(Number(value1))
+        return Number.continueDown(value1)
 
     execute_continueDown.arg_names = ["value1"]
 
@@ -2196,7 +2217,7 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return servo.posX(value1)
+        return Number.posx(value1)
 
     execute_posX.arg_names = ["value1"]
 
@@ -2209,7 +2230,7 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return servo.posY(value1)
+        return Number.posy(value1)
 
     execute_posY.arg_names = ["value1"]
 
@@ -2230,7 +2251,7 @@ class BuiltInFunction(BaseFunction):
                 "The second argument must be number",
                 exec_ctx
             ))
-        return servo.pos(value1, value2)
+        return Number.pos(value1, value2)
 
     execute_pos.arg_names = ["value1", "value2"]
 
