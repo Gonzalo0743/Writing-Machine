@@ -1,38 +1,6 @@
-# This is a very useful piece of software
+def(rara,5)
 
-#FUN oopify(prefix) -> prefix + "oop"
+PRINT(rara)
 
-#FUN join(elements, separator)
-#	VAR result = ""
-#	VAR len = LEN(elements)
 
-#	FOR i = 0 TO len THEN
-#		VAR result = result + elements/i
-#		IF i != len - 1 THEN VAR result = result + separator
-#	END
-
-#	RETURN result
-#END
-
-#FUN map(elements, func)
-#	VAR new_elements = []
-
-#	FOR i = 0 TO LEN(elements) THEN
-#		APPEND(new_elements, func(elements/i))
-#	END
-
-#	RETURN new_elements
-#END
-
-#PRINT("Greetings universe!")
-
-#FOR i = 0 TO 5 THEN
-#	PRINT(join(map(["l", "sp"], oopify), ", "))
-#END
-
-#def(rara,4)
-#def(rar,3)
-#POP([1,2,3,4],3)
-#PRINT(rara)
-VAR list = [1]
 

@@ -44,18 +44,18 @@ def posY(coor):
 # ContiueRight/Left/Up/Down:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 def continueRight(units):
     global posAxisX
-    pin9.write(speedRight)
+    pinX.write(speedRight)
     time.sleep(units)
-    pin9.write(noSpeed)
+    pinX.write(noSpeed)
     posAxisX += units
     print(posAxisX)
     return
 
 def continueLeft(units):
     global posAxisX
-    pin9.write(speedLeft)
+    pinX.write(speedLeft)
     time.sleep(units)
-    pin9.write(noSpeed)
+    pinX.write(noSpeed)
     posAxisX -= units
     print(posAxisX)
     return
@@ -63,9 +63,9 @@ def continueLeft(units):
 #Cambiar Pin
 def continueUp(units):
     global posAxisY
-    pin9.write(speedLeft)
+    pinY.write(speedLeft)
     time.sleep(units)
-    pin9.write(noSpeed)
+    pinY.write(noSpeed)
     posAxisY += units
     print(posAxisY)
     return
@@ -73,24 +73,26 @@ def continueUp(units):
 #Cambiar Pin
 def continueDown(units):
     global posAxisY
-    pin9.write(speedLeft)
+    pinY.write(speedLeft)
     time.sleep(units)
-    pin9.write(noSpeed)
+    pinY.write(noSpeed)
     posAxisY -= units
     print(posAxisY)
     return
 # :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 def main():
-    global pin9
+    global pinX, pinY
     units = 5
 
-    board = pyfirmata.Arduino('COM5')
+    board = pyfirmata.Arduino('COM3')
 
     iter8 = pyfirmata.util.Iterator(board)
     iter8.start()
 
-    pin9 = board.get_pin('d:9:s')
+    #Cambiar
+    pinX = board.get_pin('d:9:s')
+    pinY = board.get_pin('d:9:s')
     continueRight(units)
 
 main()
