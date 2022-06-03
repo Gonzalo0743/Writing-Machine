@@ -91,8 +91,8 @@ def main():
     iter8.start()
 
     #Cambiar
-    pinX = board.get_pin('d:9:s')
+    pinX = board.get_pin('d:10:s')
     pinY = board.get_pin('d:9:s')
     continueRight(units)
 
-main()
+#main()

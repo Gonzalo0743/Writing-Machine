@@ -1,6 +1,6 @@
 def(rara,5)
 
-PRINT(rara)
+PRINTLINE(rara)
 
 
 
