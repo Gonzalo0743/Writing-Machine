@@ -2165,7 +2165,8 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return Number.continueRight(value1)
+        Number.continueRight(value1)
+        return RTResult().success((Number(value1)))
 
     execute_continueRight.arg_names = ["value1"]
 
