@@ -45,7 +45,7 @@ def run():
         text = Label(save_prompt, text='Before running,save your code')
         text.pack()
         return
-    shell_path = "C:/Users/Chalo/Documents/GitHub/Writing-Machine/shell.py"
+    shell_path = "shell.py"
     command = f'python {shell_path}'
     process = subprocess.Popen(command, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=True)
     output, error = process.communicate()
