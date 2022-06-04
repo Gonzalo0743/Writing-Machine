@@ -1447,7 +1447,8 @@ class Number(Value):
     #Operaciones pyfirmata
     def continueRight(self):
         if isinstance(self, Number):
-            Number(self.value).set_context(self.context) , None
+            num = Number(self.value)
+            num.set_context(self.context)
             return servo.continueRight(self.value)
         else:
             return None, Value.illegal_operation(self)
