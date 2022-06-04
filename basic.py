@@ -1454,37 +1454,43 @@ class Number(Value):
 
     def continueLeft(self):
         if isinstance(self, Number):
-            return servo.continueLeft(self.value)
+            servo.continueLeft(self.value)
+            return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def continueUp(self):
         if isinstance(self, Number):
-            return servo.continueUp(self.value)
+            servo.continueUp(self.value)
+            return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def continueDown(self):
         if isinstance(self, Number):
-            return servo.continueDown(self.value)
+            servo.continueDown(self.value)
+            return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def posx(self):
         if isinstance(self, Number):
-            return servo.posx(self.value)
+            servo.posX(self.value)
+            return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def posy(self):
         if isinstance(self, Number):
-            return servo.posy(self.value)
+            servo.posY(self.value)
+            return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def pos(self, other):
         if isinstance(other, Number):
-            return servo.pos(self.value,other.value)
+            servo.pos(self.value)
+            return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
@@ -2166,7 +2172,7 @@ class BuiltInFunction(BaseFunction):
                 exec_ctx
             ))
         Number.continueRight(value1)
-        return RTResult().success((Number(value1)))
+        return RTResult().success(Number.null)
 
     execute_continueRight.arg_names = ["value1"]
 
@@ -2179,7 +2185,8 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return Number.continueLeft(value1)
+        Number.continueLeft(value1)
+        return RTResult().success(Number.null)
 
     execute_continueLeft.arg_names = ["value1"]
 
@@ -2192,7 +2199,8 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return Number.continueUp(value1)
+        Number.continueUp(value1)
+        return RTResult().success(Number.null)
 
     execute_continueUp.arg_names = ["value1"]
 
@@ -2205,7 +2213,8 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return Number.continueDown(value1)
+        Number.continueDown(value1)
+        return RTResult().success(Number.null)
 
     execute_continueDown.arg_names = ["value1"]
 
@@ -2218,7 +2227,8 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return Number.posx(value1)
+        Number.posx(value1)
+        return RTResult().success(Number.null)
 
     execute_posX.arg_names = ["value1"]
 
@@ -2231,7 +2241,8 @@ class BuiltInFunction(BaseFunction):
                 "The argument must be number",
                 exec_ctx
             ))
-        return Number.posy(value1)
+        Number.posy(value1)
+        return RTResult().success(Number.null)
 
     execute_posY.arg_names = ["value1"]
 
@@ -2252,7 +2263,8 @@ class BuiltInFunction(BaseFunction):
                 "The second argument must be number",
                 exec_ctx
             ))
-        return Number.pos(value1, value2)
+        Number.pos(value1)
+        return RTResult().success(Number.null)
 
     execute_pos.arg_names = ["value1", "value2"]
 
