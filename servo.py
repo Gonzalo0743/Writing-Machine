@@ -9,8 +9,8 @@ noSpeed = 90    # Stop
 # Initial axis positions
 with open('memoryAxis.txt', 'r') as memoryAxis:
     axisPositions = memoryAxis.readlines()
-posAxisX = axisPositions[1]
-posAxisY = axisPositions[2]
+posAxisX = int(axisPositions[0])
+posAxisY = int(axisPositions[1])
 
 
 # Pen servo positions and state
