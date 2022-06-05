@@ -1819,10 +1819,6 @@ class BuiltInFunction(BaseFunction):
 
     execute_print.arg_names = ['value']
 
-    def execute_print_ret(self, exec_ctx):
-        return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
-
-    execute_print_ret.arg_names = ['value']
 
     def execute_input(self, exec_ctx):
         text = input()
@@ -2310,7 +2306,6 @@ class BuiltInFunction(BaseFunction):
 
 
 BuiltInFunction.print = BuiltInFunction("print")
-BuiltInFunction.print_ret = BuiltInFunction("print_ret")
 BuiltInFunction.input = BuiltInFunction("input")
 BuiltInFunction.input_int = BuiltInFunction("input_int")
 BuiltInFunction.clear = BuiltInFunction("clear")
@@ -2645,7 +2640,6 @@ global_symbol_table.set("FALSE", Number.false)
 global_symbol_table.set("TRUE", Number.true)
 global_symbol_table.set("MATH_PI", Number.math_PI)
 global_symbol_table.set("PRINTLINE", BuiltInFunction.print)
-global_symbol_table.set("PRINT_RET", BuiltInFunction.print_ret)
 global_symbol_table.set("INPUT", BuiltInFunction.input)
 global_symbol_table.set("INPUT_INT", BuiltInFunction.input_int)
 global_symbol_table.set("CLEAR", BuiltInFunction.clear)
