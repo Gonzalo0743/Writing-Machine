@@ -7,8 +7,11 @@ speedNeg = 95  # Negative
 noSpeed = 90    # Stop
 
 # Initial axis positions
-posAxisX = 0
-posAxisY = 0
+with open('memoryAxis.txt', 'r') as memoryAxis:
+    axisPositions = memoryAxis.readlines()
+posAxisX = axisPositions[1]
+posAxisY = axisPositions[2]
+
 
 # Pen servo positions and state
 ## Cambiar pen
@@ -89,6 +92,9 @@ def continueRight(units):
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX += move
+        axisPositions[0] = posAxisX+'\n'
+        with open('memoryAxis.txt', 'w') as memoryAxis:
+            memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
         return
 
@@ -108,6 +114,9 @@ def continueLeft(units):
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX -= move
+        axisPositions[0] = posAxisX + '\n'
+        with open('memoryAxis.txt', 'w') as memoryAxis:
+            memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
         return
 
@@ -128,6 +137,9 @@ def continueUp(units):
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY += move
+        axisPositions[1] = posAxisY + '\n'
+        with open('memoryAxis.txt', 'w') as memoryAxis:
+            memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
         return
 
@@ -147,6 +159,9 @@ def continueDown(units):
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY -= move
+        axisPositions[1] = posAxisY + '\n'
+        with open('memoryAxis.txt', 'w') as memoryAxis:
+            memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
         return
 
