@@ -18,7 +18,7 @@ posAxisY = int(axisPositions[1])
 
 
 # Pen servo positions and state
-## Cambiar pen
+
 penUp = 10
 penDown = 0
 isPenUp = True
@@ -38,7 +38,6 @@ iter8 = pyfirmata.util.Iterator(board)
 iter8.start()
 
 # Pins setup
-## Cambiar Pen
 pinX = board.get_pin('d:10:s')
 pinY = board.get_pin('d:9:s')
 pinPen = board.get_pin('d:8:s')

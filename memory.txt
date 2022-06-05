@@ -1,1 +1,1 @@
-example.myopl
+pala.myopl
