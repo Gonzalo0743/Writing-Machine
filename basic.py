@@ -2281,9 +2281,13 @@ class BuiltInFunction(BaseFunction):
         Number.up()
         return RTResult().success(Number.null)
 
+    execute_up.arg_names = []
+
     def execute_down(self):
         Number.down()
         return RTResult().success(Number.null)
+
+    execute_down.arg_names = []
 
 
 BuiltInFunction.print = BuiltInFunction("print")
