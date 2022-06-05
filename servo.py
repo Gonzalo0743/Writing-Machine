@@ -25,7 +25,7 @@ isPenUp = True
 
 # Axis limits
 limitLeftX = 0
-limitRightX = 15
+limitRightX = 35
 limitDownY = 0
 limitUpY = 20
 
@@ -100,7 +100,7 @@ def continueRight(units):
         axisPositions[0] = str(posAxisX) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
-
+        print('Comando ejecutado, posicion actual en x: ', posAxisX)
         return
 
 def continueLeft(units):
