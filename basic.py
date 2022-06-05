@@ -1495,10 +1495,6 @@ class Number(Value):
             return None, Value.illegal_operation(self)
 
 
-
-
-
-
     #Operaciones matemáticas
     def added_to(self, other):
         if isinstance(other, Number):
@@ -2268,7 +2264,7 @@ class BuiltInFunction(BaseFunction):
                 "The second argument must be number",
                 exec_ctx
             ))
-        Number.pos(value1)
+        Number.pos(value1, value2)
         return RTResult().success(Number.null)
 
     execute_pos.arg_names = ["value1", "value2"]
