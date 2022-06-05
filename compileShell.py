@@ -1,4 +1,4 @@
-import basic
+import compOnlyBasic
 from tkinter import *
 
 alive = True
@@ -12,15 +12,13 @@ while alive:
 
 	comand = f'RUN("{file}")'
 
-	result, error = basic.run(file, comand)
+	result, error = compOnlyBasic.run(file, comand)
 
 	if error:
+		print("Ups!\n")
 		print(error.as_string())
-	#Quiza eliminar?
 	elif result:
-		if len(result.elements) == 1:
-			print(repr(result.elements[0]))
-		else:
-			print(repr(result))
+		print("Compilation complete, nothing to fix! ;)")
+
 
 	alive = False
