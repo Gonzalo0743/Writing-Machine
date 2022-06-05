@@ -2,10 +2,10 @@ import pyfirmata
 import time
 
 # Servo speed
-speedPosX = 85   # Positive X
-speedNegX = 93   # Negative X
+speedPosX = 84   # Positive X
+speedNegX = 92.9 # Negative X
 
-speedPosY = 85   # Positive Y
+speedPosY = 84   # Positive Y
 speedNegY = 95   # Negative Y
 
 noSpeed = 90     # Stop
@@ -19,13 +19,13 @@ posAxisY = int(axisPositions[1])
 
 # Pen servo positions and state
 ## Cambiar pen
-penUp = 5
+penUp = 10
 penDown = 0
 isPenUp = True
 
 # Axis limits
 limitLeftX = 0
-limitRightX = 35
+limitRightX = 25
 limitDownY = 0
 limitUpY = 20
 
