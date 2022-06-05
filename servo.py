@@ -1,10 +1,14 @@
 import pyfirmata
 import time
 
-# Servo velocity
-speedPos = 85   # Positive
-speedNeg = 95  # Negative
-noSpeed = 90    # Stop
+# Servo speed
+speedPosX = 85   # Positive X
+speedNegX = 93   # Negative X
+
+speedPosY = 85   # Positive Y
+speedNegY = 95   # Negative Y
+
+noSpeed = 90     # Stop
 
 # Initial axis positions
 with open('memoryAxis.txt', 'r') as memoryAxis:
@@ -85,17 +89,18 @@ def continueRight(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en x: ', posAxisX)
         return
     else:
         moveTime = move / 10
-        pinX.write(speedPos)
+        pinX.write(speedPosX)
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX += move
         axisPositions[0] = str(posAxisX) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
-        print('Comando ejecutado, posicion actual en x: ', posAxisX)
+
         return
 
 def continueLeft(units):
@@ -107,10 +112,11 @@ def continueLeft(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en x: ', posAxisX)
         return
     else:
         moveTime = move / 10
-        pinX.write(speedNeg)
+        pinX.write(speedNegX)
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX -= move
@@ -130,10 +136,11 @@ def continueUp(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en y: ', posAxisY)
         return
     else:
         moveTime = move / 10
-        pinY.write(speedPos)
+        pinY.write(speedPosY)
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY += move
@@ -152,10 +159,11 @@ def continueDown(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en y: ', posAxisY)
         return
     else:
         moveTime = move / 10
-        pinY.write(speedNeg)
+        pinY.write(speedNegY)
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY -= move
