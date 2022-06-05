@@ -2281,6 +2281,12 @@ class BuiltInFunction(BaseFunction):
 
     execute_down.arg_names = []
 
+    def execute_beginning(self,exec_ctx):
+        servo.beginning()
+        return RTResult().success(Number.null)
+
+    execute_beginning.arg_names = []
+
 
 BuiltInFunction.print = BuiltInFunction("print")
 BuiltInFunction.print_ret = BuiltInFunction("print_ret")
@@ -2314,6 +2320,7 @@ BuiltInFunction.posY = BuiltInFunction("posY")
 BuiltInFunction.pos = BuiltInFunction("pos")
 BuiltInFunction.up = BuiltInFunction("up")
 BuiltInFunction.down = BuiltInFunction("down")
+BuiltInFunction.beginning = BuiltInFunction("beginning")
 
 
 #######################################
@@ -2648,6 +2655,7 @@ global_symbol_table.set("posY", BuiltInFunction.posY)
 global_symbol_table.set("pos", BuiltInFunction.pos)
 global_symbol_table.set("up", BuiltInFunction.up)
 global_symbol_table.set("down", BuiltInFunction.down)
+global_symbol_table.set("Beginning", BuiltInFunction.beginning)
 
 
 def run(fn, text):
