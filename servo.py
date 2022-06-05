@@ -1,27 +1,31 @@
 import pyfirmata
 import time
 
-# Servo velocity
-speedPos = 85   # Positive
-speedNeg = 95  # Negative
-noSpeed = 90    # Stop
+# Servo speed
+speedPosX = 84   # Positive X
+speedNegX = 92.9 # Negative X
+
+speedPosY = 84   # Positive Y
+speedNegY = 95   # Negative Y
+
+noSpeed = 90     # Stop
 
 # Initial axis positions
 with open('memoryAxis.txt', 'r') as memoryAxis:
     axisPositions = memoryAxis.readlines()
-posAxisX = axisPositions[1]
-posAxisY = axisPositions[2]
+posAxisX = int(axisPositions[0])
+posAxisY = int(axisPositions[1])
 
 
 # Pen servo positions and state
-## Cambiar pen
-penUp = 5
+
+penUp = 10
 penDown = 0
 isPenUp = True
 
 # Axis limits
 limitLeftX = 0
-limitRightX = 15
+limitRightX = 25
 limitDownY = 0
 limitUpY = 20
 
@@ -34,7 +38,6 @@ iter8 = pyfirmata.util.Iterator(board)
 iter8.start()
 
 # Pins setup
-## Cambiar Pen
 pinX = board.get_pin('d:10:s')
 pinY = board.get_pin('d:9:s')
 pinPen = board.get_pin('d:8:s')
@@ -85,14 +88,15 @@ def continueRight(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en x: ', posAxisX)
         return
     else:
         moveTime = move / 10
-        pinX.write(speedPos)
+        pinX.write(speedPosX)
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX += move
-        axisPositions[0] = posAxisX+'\n'
+        axisPositions[0] = str(posAxisX) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
@@ -107,14 +111,15 @@ def continueLeft(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en x: ', posAxisX)
         return
     else:
         moveTime = move / 10
-        pinX.write(speedNeg)
+        pinX.write(speedNegX)
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX -= move
-        axisPositions[0] = posAxisX + '\n'
+        axisPositions[0] = str(posAxisX) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
@@ -130,14 +135,15 @@ def continueUp(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en y: ', posAxisY)
         return
     else:
         moveTime = move / 10
-        pinY.write(speedPos)
+        pinY.write(speedPosY)
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY += move
-        axisPositions[1] = posAxisY + '\n'
+        axisPositions[1] = str(posAxisY) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
@@ -152,14 +158,15 @@ def continueDown(units):
     else:
         move = units
     if move == 0:
+        print('Comando ejecutado, posicion actual en y: ', posAxisY)
         return
     else:
         moveTime = move / 10
-        pinY.write(speedNeg)
+        pinY.write(speedNegY)
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY -= move
-        axisPositions[1] = posAxisY + '\n'
+        axisPositions[1] = str(posAxisY) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
@@ -172,8 +179,10 @@ def up():
     if isPenUp != True:
         pinPen.write(penUp)
         isPenUp = True
+        print('Comando ejecutado, posicion actual del lapiz es arriba')
         return
     else:
+        print('Comando ejecutado, posicion actual del lapiz es arriba')
         return
 
 def down():
@@ -181,8 +190,10 @@ def down():
     if isPenUp != False:
         pinPen.write(penDown)
         isPenUp = False
+        print('Comando ejecutado, posicion actual del lapiz es abajo')
         return
     else:
+        print('Comando ejecutado, posicion actual del lapiz es abajo')
         return
 
 

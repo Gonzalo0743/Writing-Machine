@@ -1,0 +1,9 @@
+
+pos(20,2)
+continueUp(5)
+continueRight(4)
+continueUp(10)
+continueRight(4)
+continueDown(10)
+continueRight(4)
+continueDown(5)
