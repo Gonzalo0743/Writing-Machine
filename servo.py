@@ -15,7 +15,7 @@ posAxisY = axisPositions[2]
 
 # Pen servo positions and state
 ## Cambiar pen
-penUp = 90
+penUp = 5
 penDown = 0
 isPenUp = True
 
