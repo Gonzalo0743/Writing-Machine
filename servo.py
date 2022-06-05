@@ -35,7 +35,7 @@ iter8.start()
 pinX = board.get_pin('d:10:s')
 pinY = board.get_pin('d:9:s')
 pinPen = board.get_pin('d:8:s')
-pinPen.write(penDown)
+pinPen.write(penUp)
 pinX.write(90)
 pinY.write(90)
 
