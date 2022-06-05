@@ -180,8 +180,10 @@ def up():
     if isPenUp != True:
         pinPen.write(penUp)
         isPenUp = True
+        print('Comando ejecutado, posicion actual del lapiz es arriba')
         return
     else:
+        print('Comando ejecutado, posicion actual del lapiz es arriba')
         return
 
 def down():
@@ -189,8 +191,10 @@ def down():
     if isPenUp != False:
         pinPen.write(penDown)
         isPenUp = False
+        print('Comando ejecutado, posicion actual del lapiz es abajo')
         return
     else:
+        print('Comando ejecutado, posicion actual del lapiz es abajo')
         return
 
 
