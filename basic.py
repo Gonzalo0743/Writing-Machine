@@ -1489,7 +1489,7 @@ class Number(Value):
 
     def pos(self, other):
         if isinstance(other, Number):
-            servo.pos(self.value)
+            servo.pos(self.value,other.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
