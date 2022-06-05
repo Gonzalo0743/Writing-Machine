@@ -1,24 +1,41 @@
 import pyfirmata
 import time
 
-speedRight = 85
-speedLeft = 105
-noSpeed = 90
+# Servo velocity
+speedPos = 85   # Positive
+speedNeg = 105  # Negative
+noSpeed = 90    # Stop
 
+# Initial axis positions
 posAxisX = 0
 posAxisY = 0
 
+# Pen servo positions and state
+## Cambiar pen
+penUp = 90
+penDown = 0
+isPenUp = True
+
+# Axis limits
+limitLeftX = 0
+limitRightX = 100
+limitDownY = 0
+limitUpY = 100
+
+## Estorba probablemente
 global pinX, pinY
 
 
 board = pyfirmata.Arduino('COM3')
-
 iter8 = pyfirmata.util.Iterator(board)
 iter8.start()
 
-#Cambiar
+# Pins setup
+## Cambiar Pen
 pinX = board.get_pin('d:10:s')
 pinY = board.get_pin('d:9:s')
+pinPen = board.get_pin('d:8:s')
+pinPen.write(penUp)
 pinX.write(90)
 pinY.write(90)
 
@@ -34,7 +51,7 @@ def posX(coor):
     global posAxisX
     move = coor - posAxisX
     if move < 0:
-        continueLeft(move)
+        continueLeft(abs(move))
         return
     if move > 0:
         continueRight(move)
@@ -46,7 +63,7 @@ def posY(coor):
     global posAxisY
     move = coor - posAxisY
     if move < 0:
-        continueDown(move)
+        continueDown(abs(move))
         return
     if move > 0:
         continueUp(move)
@@ -58,42 +75,96 @@ def posY(coor):
 # ContiueRight/Left/Up/Down:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 def continueRight(units):
     global posAxisX
-    pinX.write(speedRight)
-    time.sleep(units)
-    pinX.write(noSpeed)
-    posAxisX += units
-    print(posAxisX)
-    return
+    expectedMove = posAxisX + units
+    if expectedMove >= limitRightX:
+        excess = expectedMove - limitRightX
+        move = units - excess
+    else:
+        move = units
+    if move == 0:
+        return
+    else:
+        pinX.write(speedPos)
+        time.sleep(move)
+        pinX.write(noSpeed)
+        posAxisX += move
+        print('Comando ejecutado, posicion actual en x: ', posAxisX)
+        return
 
 def continueLeft(units):
     global posAxisX
-    pinX.write(speedLeft)
-    time.sleep(units)
-    pinX.write(noSpeed)
-    posAxisX -= units
-    print(posAxisX)
-    return
+    expectedMove = posAxisX - units
+    if expectedMove <= limitLeftX:
+        excess = expectedMove + abs(limitLeftX)
+        move = units - abs(excess)
+    else:
+        move = units
+    if move == 0:
+        return
+    else:
+        pinX.write(speedNeg)
+        time.sleep(move)
+        pinX.write(noSpeed)
+        posAxisX -= move
+        print('Comando ejecutado, posicion actual en x: ', posAxisX)
+        return
 
-#Cambiar Pin
+
 def continueUp(units):
     global posAxisY
-    pinY.write(speedLeft)
-    time.sleep(units)
-    pinY.write(noSpeed)
-    posAxisY += units
-    print(posAxisY)
-    return
+    expectedMove = posAxisY + units
+    if expectedMove >= limitUpY:
+        excess = expectedMove - limitUpY
+        move = units - excess
+    else:
+        move = units
+    if move == 0:
+        return
+    else:
+        pinY.write(speedPos)
+        time.sleep(move)
+        pinY.write(noSpeed)
+        posAxisY += move
+        print('Comando ejecutado, posicion actual en y: ', posAxisY)
+        return
 
-#Cambiar Pin
 def continueDown(units):
     global posAxisY
-    pinY.write(speedLeft)
-    time.sleep(units)
-    pinY.write(noSpeed)
-    posAxisY -= units
-    print(posAxisY)
-    return
-# :::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+    expectedMove = posAxisY - units
+    if expectedMove <= limitDownY:
+        excess = expectedMove + abs(limitDownY)
+        move = units - abs(excess)
+    else:
+        move = units
+    if move == 0:
+        return
+    else:
+        pinY.write(speedNeg)
+        time.sleep(move)
+        pinY.write(noSpeed)
+        posAxisY -= move
+        print('Comando ejecutado, posicion actual en y: ', posAxisY)
+        return
+
+# Up/Down:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+
+def up():
+    global isPenUp
+    if isPenUp != True:
+        pinPen.write(penUp)
+        isPenUp = True
+        return
+    else:
+        return
+
+def down():
+    global isPenUp
+    if isPenUp != False:
+        pinPen.write(penDown)
+        isPenUp = False
+        return
+    else:
+        return
 
 
 
