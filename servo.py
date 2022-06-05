@@ -3,7 +3,7 @@ import time
 
 # Servo velocity
 speedPos = 85   # Positive
-speedNeg = 105  # Negative
+speedNeg = 95  # Negative
 noSpeed = 90    # Stop
 
 # Initial axis positions
@@ -18,9 +18,9 @@ isPenUp = True
 
 # Axis limits
 limitLeftX = 0
-limitRightX = 100
+limitRightX = 1.5
 limitDownY = 0
-limitUpY = 100
+limitUpY = 2
 
 ## Estorba probablemente
 global pinX, pinY
@@ -35,7 +35,7 @@ iter8.start()
 pinX = board.get_pin('d:10:s')
 pinY = board.get_pin('d:9:s')
 pinPen = board.get_pin('d:8:s')
-pinPen.write(penUp)
+pinPen.write(penDown)
 pinX.write(90)
 pinY.write(90)
 

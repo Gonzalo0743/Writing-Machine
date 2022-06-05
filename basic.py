@@ -2676,7 +2676,7 @@ global_symbol_table.set("posX", BuiltInFunction.posX)
 global_symbol_table.set("posY", BuiltInFunction.posY)
 global_symbol_table.set("pos", BuiltInFunction.pos)
 global_symbol_table.set("up", BuiltInFunction.up)
-global_symbol_table.set("down", BuiltInFunction.up)
+global_symbol_table.set("down", BuiltInFunction.down)
 
 
 def run(fn, text):
