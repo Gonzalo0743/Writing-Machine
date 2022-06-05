@@ -45,13 +45,21 @@ pinPen.write(penUp)
 pinX.write(90)
 pinY.write(90)
 
+# Speed::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
+def speed(num):
+    global speedPosX, speedPosY, speedNegX, speedNegY
+    numModed = num/10
+    speedPosX += numModed
+    speedPosY += numModed
+    speedNegX -= numModed
+    speedNegY -= numModed
+
 # Begining:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 def beginning():
     posX(1)
     posY(1)
     print('Ready!')
     return
-
 
 # Pos(X,Y):::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 def pos(x, y):
