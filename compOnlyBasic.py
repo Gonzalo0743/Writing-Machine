@@ -1,4 +1,3 @@
-#comentar print de exito y servos
 #######################################
 # IMPORTS
 #######################################
@@ -1448,52 +1447,60 @@ class Number(Value):
     #Operaciones pyfirmata
     def continueRight(self):
         if isinstance(self, Number):
-            #servo.continueRight(self.value)
+            # servo.continueRight(self.value)
             return Number(self.value).set_context(self.context) , None
         else:
             return None, Value.illegal_operation(self)
 
     def continueLeft(self):
         if isinstance(self, Number):
-            #servo.continueLeft(self.value)
+            # servo.continueLeft(self.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def continueUp(self):
         if isinstance(self, Number):
-            #servo.continueUp(self.value)
+            # servo.continueUp(self.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def continueDown(self):
         if isinstance(self, Number):
-            #servo.continueDown(self.value)
+            # servo.continueDown(self.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def posx(self):
         if isinstance(self, Number):
-            #servo.posX(self.value)
+            # servo.posX(self.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def posy(self):
         if isinstance(self, Number):
-            #servo.posY(self.value)
+            # servo.posY(self.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
     def pos(self, other):
         if isinstance(other, Number):
-            #servo.pos(self.value)
+            # servo.pos(self.value,other.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
+
+    def speed(self):
+        if isinstance(self, Number):
+            # servo.speed(self.value)
+            return Number(self.value).set_context(self.context), None
+        else:
+            return None, Value.illegal_operation(self)
+
 
     #Operaciones matemáticas
     def added_to(self, other):
@@ -2264,10 +2271,42 @@ class BuiltInFunction(BaseFunction):
                 "The second argument must be number",
                 exec_ctx
             ))
-        Number.pos(value1)
+        Number.pos(value1, value2)
         return RTResult().success(Number.null)
 
     execute_pos.arg_names = ["value1", "value2"]
+
+    def execute_up(self,exec_ctx):
+        # servo.up()
+        return RTResult().success(Number.null)
+
+    execute_up.arg_names = []
+
+    def execute_down(self,exec_ctx):
+        # servo.down()
+        return RTResult().success(Number.null)
+
+    execute_down.arg_names = []
+
+    def execute_beginning(self,exec_ctx):
+        # servo.beginning()
+        return RTResult().success(Number.null)
+
+    execute_beginning.arg_names = []
+
+    def execute_speed(self, exec_ctx):
+        value1 = exec_ctx.symbol_table.get("value1")
+
+        if not isinstance(value1, Value):
+            return RTResult().failure(RTError(
+                self.pos_start, self.pos_end,
+                "The argument must be number",
+                exec_ctx
+            ))
+        Number.speed(value1)
+        return RTResult().success(Number.null)
+
+    execute_speed.arg_names = ["value1"]
 
 
 BuiltInFunction.print = BuiltInFunction("print")
@@ -2300,6 +2339,10 @@ BuiltInFunction.continueDown = BuiltInFunction("continueDown")
 BuiltInFunction.posX = BuiltInFunction("posX")
 BuiltInFunction.posY = BuiltInFunction("posY")
 BuiltInFunction.pos = BuiltInFunction("pos")
+BuiltInFunction.up = BuiltInFunction("up")
+BuiltInFunction.down = BuiltInFunction("down")
+BuiltInFunction.beginning = BuiltInFunction("beginning")
+BuiltInFunction.speed = BuiltInFunction("speed")
 
 
 #######################################
@@ -2632,6 +2675,10 @@ global_symbol_table.set("continueDown", BuiltInFunction.continueDown)
 global_symbol_table.set("posX", BuiltInFunction.posX)
 global_symbol_table.set("posY", BuiltInFunction.posY)
 global_symbol_table.set("pos", BuiltInFunction.pos)
+global_symbol_table.set("up", BuiltInFunction.up)
+global_symbol_table.set("down", BuiltInFunction.down)
+global_symbol_table.set("Beginning", BuiltInFunction.beginning)
+global_symbol_table.set("Speed", BuiltInFunction.speed)
 
 
 def run(fn, text):
