@@ -18,9 +18,9 @@ isPenUp = True
 
 # Axis limits
 limitLeftX = 0
-limitRightX = 1.5
+limitRightX = 15
 limitDownY = 0
-limitUpY = 2
+limitUpY = 20
 
 ## Estorba probablemente
 global pinX, pinY
@@ -84,8 +84,9 @@ def continueRight(units):
     if move == 0:
         return
     else:
+        moveTime = move / 10
         pinX.write(speedPos)
-        time.sleep(move)
+        time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX += move
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
@@ -102,8 +103,9 @@ def continueLeft(units):
     if move == 0:
         return
     else:
+        moveTime = move / 10
         pinX.write(speedNeg)
-        time.sleep(move)
+        time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX -= move
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
@@ -121,8 +123,9 @@ def continueUp(units):
     if move == 0:
         return
     else:
+        moveTime = move / 10
         pinY.write(speedPos)
-        time.sleep(move)
+        time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY += move
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
@@ -139,8 +142,9 @@ def continueDown(units):
     if move == 0:
         return
     else:
+        moveTime = move / 10
         pinY.write(speedNeg)
-        time.sleep(move)
+        time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY -= move
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
