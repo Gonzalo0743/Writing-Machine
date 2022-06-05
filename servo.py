@@ -46,7 +46,7 @@ pinX.write(90)
 pinY.write(90)
 
 # Begining:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
-def begining():
+def beginning():
     posX(1)
     posY(1)
     print('Ready!')
