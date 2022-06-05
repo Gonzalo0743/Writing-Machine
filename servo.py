@@ -92,7 +92,7 @@ def continueRight(units):
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX += move
-        axisPositions[0] = posAxisX+'\n'
+        axisPositions[0] = str(posAxisX) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
@@ -114,7 +114,7 @@ def continueLeft(units):
         time.sleep(moveTime)
         pinX.write(noSpeed)
         posAxisX -= move
-        axisPositions[0] = posAxisX + '\n'
+        axisPositions[0] = str(posAxisX) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en x: ', posAxisX)
@@ -137,7 +137,7 @@ def continueUp(units):
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY += move
-        axisPositions[1] = posAxisY + '\n'
+        axisPositions[1] = str(posAxisY) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
@@ -159,7 +159,7 @@ def continueDown(units):
         time.sleep(moveTime)
         pinY.write(noSpeed)
         posAxisY -= move
-        axisPositions[1] = posAxisY + '\n'
+        axisPositions[1] = str(posAxisY) + '\n'
         with open('memoryAxis.txt', 'w') as memoryAxis:
             memoryAxis.writelines(axisPositions)
         print('Comando ejecutado, posicion actual en y: ', posAxisY)
