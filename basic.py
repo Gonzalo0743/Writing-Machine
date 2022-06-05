@@ -1494,6 +1494,20 @@ class Number(Value):
         else:
             return None, Value.illegal_operation(self)
 
+    def up(self, other):
+        if isinstance(other, Number):
+            servo.up(self.value)
+            return Number(self.value).set_context(self.context), None
+        else:
+            return None, Value.illegal_operation(self)
+
+    def down(self, other):
+        if isinstance(other, Number):
+            servo.down(self.value)
+            return Number(self.value).set_context(self.context), None
+        else:
+            return None, Value.illegal_operation(self)
+
     #Operaciones matemáticas
     def added_to(self, other):
         if isinstance(other, Number):
@@ -2268,6 +2282,34 @@ class BuiltInFunction(BaseFunction):
 
     execute_pos.arg_names = ["value1", "value2"]
 
+    def execute_up(self, exec_ctx):
+        value1 = exec_ctx.symbol_table.get("value1")
+
+        if not isinstance(value1, Value):
+            return RTResult().failure(RTError(
+                self.pos_start, self.pos_end,
+                "The argument must be number",
+                exec_ctx
+            ))
+        Number.up(value1)
+        return RTResult().success(Number.null)
+
+    execute_up.arg_names = ["value1"]
+
+    def execute_down(self, exec_ctx):
+        value1 = exec_ctx.symbol_table.get("value1")
+
+        if not isinstance(value1, Value):
+            return RTResult().failure(RTError(
+                self.pos_start, self.pos_end,
+                "The argument must be number",
+                exec_ctx
+            ))
+        Number.down(value1)
+        return RTResult().success(Number.null)
+
+    execute_down.arg_names = ["value1"]
+
 
 BuiltInFunction.print = BuiltInFunction("print")
 BuiltInFunction.print_ret = BuiltInFunction("print_ret")
@@ -2299,6 +2341,8 @@ BuiltInFunction.continueDown = BuiltInFunction("continueDown")
 BuiltInFunction.posX = BuiltInFunction("posX")
 BuiltInFunction.posY = BuiltInFunction("posY")
 BuiltInFunction.pos = BuiltInFunction("pos")
+BuiltInFunction.up = BuiltInFunction("up")
+BuiltInFunction.down = BuiltInFunction("down")
 
 
 #######################################
@@ -2631,6 +2675,8 @@ global_symbol_table.set("continueDown", BuiltInFunction.continueDown)
 global_symbol_table.set("posX", BuiltInFunction.posX)
 global_symbol_table.set("posY", BuiltInFunction.posY)
 global_symbol_table.set("pos", BuiltInFunction.pos)
+global_symbol_table.set("up", BuiltInFunction.up)
+global_symbol_table.set("down", BuiltInFunction.up)
 
 
 def run(fn, text):
