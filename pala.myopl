@@ -1,5 +1,7 @@
 
-pos(20,2)
+posX(20)
+posY(2)
+down()
 continueUp(5)
 continueRight(4)
 continueUp(10)
@@ -7,3 +9,4 @@ continueRight(4)
 continueDown(10)
 continueRight(4)
 continueDown(5)
+
