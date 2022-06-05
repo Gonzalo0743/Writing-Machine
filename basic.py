@@ -1494,6 +1494,13 @@ class Number(Value):
         else:
             return None, Value.illegal_operation(self)
 
+    def speed(self):
+        if isinstance(self, Number):
+            servo.speed(self.value)
+            return Number(self.value).set_context(self.context), None
+        else:
+            return None, Value.illegal_operation(self)
+
 
     #Operaciones matemáticas
     def added_to(self, other):
@@ -2287,6 +2294,20 @@ class BuiltInFunction(BaseFunction):
 
     execute_beginning.arg_names = []
 
+    def execute_speed(self, exec_ctx):
+        value1 = exec_ctx.symbol_table.get("value1")
+
+        if not isinstance(value1, Value):
+            return RTResult().failure(RTError(
+                self.pos_start, self.pos_end,
+                "The argument must be number",
+                exec_ctx
+            ))
+        Number.speed(value1)
+        return RTResult().success(Number.null)
+
+    execute_speed.arg_names = ["value1"]
+
 
 BuiltInFunction.print = BuiltInFunction("print")
 BuiltInFunction.print_ret = BuiltInFunction("print_ret")
@@ -2321,6 +2342,7 @@ BuiltInFunction.pos = BuiltInFunction("pos")
 BuiltInFunction.up = BuiltInFunction("up")
 BuiltInFunction.down = BuiltInFunction("down")
 BuiltInFunction.beginning = BuiltInFunction("beginning")
+BuiltInFunction.speed = BuiltInFunction("speed")
 
 
 #######################################
@@ -2656,6 +2678,7 @@ global_symbol_table.set("pos", BuiltInFunction.pos)
 global_symbol_table.set("up", BuiltInFunction.up)
 global_symbol_table.set("down", BuiltInFunction.down)
 global_symbol_table.set("Beginning", BuiltInFunction.beginning)
+global_symbol_table.set("Speed", BuiltInFunction.speed)
 
 
 def run(fn, text):
