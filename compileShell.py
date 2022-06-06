@@ -1,4 +1,4 @@
-import compOnlyBasic
+import compOnlyWM
 from tkinter import *
 
 alive = True
@@ -12,7 +12,7 @@ while alive:
 
 	comand = f'RUN("{file}")'
 
-	result, error = compOnlyBasic.run(file, comand)
+	result, error = compOnlyWM.run(file, comand)
 
 	if error:
 		print("Ups!\n")

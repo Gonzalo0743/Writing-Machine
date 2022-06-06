@@ -1,4 +1,4 @@
-import basic
+import WritingMachine
 from tkinter import *
 
 alive = True
@@ -12,7 +12,7 @@ while alive:
 
 	comand = f'RUN("{file}")'
 
-	result, error = basic.run(file, comand)
+	result, error = WritingMachine.run(file, comand)
 
 	if error:
 		print(error.as_string())
