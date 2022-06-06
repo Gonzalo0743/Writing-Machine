@@ -153,19 +153,19 @@ FUN mProc6()
 	pos(5, TRUE)
 
 	#ERR36 -- POSX usa numeros
-	posX TRUE
+	posX (TRUE)
 
 	#ERR37 -- POSX usa dos parametros
-	posX 5,6
+	posX (5,6)
 
 	#ERR38 -- Operaci¢n invalida
 	posX (5/0)
 
 	#ERR39 -- POSY usa numeros
-	posY TRUE
+	posY (TRUE)
 
 	#ERR40 -- POSY usa dos parametros
-	posY 5,6
+	posY (5,6)
 
 	#ERR41 -- Operaci¢n invalida
 	posY (5/0)
@@ -222,7 +222,7 @@ FUN mProc8()
 
 	#ERR55 -- SI sin cuerpo
 	SI (10>2) [  ]
-
+#
 	#ERR56 -- IFElse sin condici¢n
 	IfElse [Down; posX (100)]  [posY (10); continueRight (9)]
 
@@ -230,21 +230,23 @@ FUN mProc8()
 	IfElse (var1=1) [posY (10); ContinueRight (9)]
 
 	#ERR57 -- IFElse con mas cuerpos
-	IfElse (var1=1) [Down; posX (100);] [posY (10); continueRight( 9);] [Down; posX 100]
+	IfElse (var1=1) [Down; posX (100);] [posY (10); continueRight( 9);] [Down; posX (100)]
 
 	#ERR58 -- Until sin condicion
-	Until   [Down; posX 100;]
+	Until   [Down; posX (100);]
 
 	#ERR59 -- Until Sin cuerp
 	Until   [bucle = 1]
 
 	#ERR60 -- While sin condicion
-	WHILE [Up; posY 90]
+	WHILE [Up; posY (90)]
 
 	#ERR61 -- While sin cuerpo
 	WHILE [bucle=1]
 
 END
+
+#def trabaja como substituto de put
 
 FUN mProc9()
 
@@ -329,4 +331,4 @@ FUN mProc10()
 	PrintLine(PrintLine())
 
 END
-Main()
+#MainX()
