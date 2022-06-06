@@ -1,49 +1,49 @@
-FUN mProc1[]
-	Def(vID0, 2)
-	Def(vID1, 5)
-	PrintLine ("P1: Valor de vID1 es: ", vID1)
+FUN mProc1()
+	def(vID0, 2)
+	def(vID1, 5)
+	PRINTLINE ("P1: Valor de vID1 es: ", vID1)
 
 	PUT(vID1, Substr(100, 45))
-	PrintLine("P2: Valor de vID1 (55) es: ", vID1)
+	PRINTLINE("P2: Valor de vID1 (55) es: ", vID1)
 
 	ADD(vID1)
-	PrintLine("P3: Valor de vID1 (56) es: ", vID1)
+	PRINTLINE("P3: Valor de vID1 (56) es: ", vID1)
 
 	ADD(vID1, 4)
-	PrintLine("P4: Valor de vID1 (60) es: ", vID1)
+	PRINTLINE("P4: Valor de vID1 (60) es: ", vID1)
 
 	ADD(vID0, vID1)
-	PrintLine("P5: Valor de vID0(62) es: ", vID0)
+	PRINTLINE("P5: Valor de vID0(62) es: ", vID0)
 
 	Run [Put(vID0, 0);   Add(vID0, 100);  Substr(vID0, 25); ]
-	PrintLine("P6: Valor de vID0(75) es: ", vID0)
+	PRINTLINE("P6: Valor de vID0(75) es: ", vID0)
 
-	Def(vID2, 0)
+	def(vID2, 0)
 	Repeat 5
 	    [  Add(vID2);
-	     PrintLine("P7: Valor de vID2 es: " vID2);  ]
+	     PRINTLINE("P7: Valor de vID2 es: " vID2);  ]
 
-	Si (vID2 > 3) [ PrintLine("P8: VID2 es mayor a 3)   ]
+	Si (vID2 > 3) [ PRINTLINE ("P8: VID2 es mayor a 3)   ]
 
-	IfElse (vID0=75)
-	[PrintLine("P9: vID0 es igual a 75")]
-	[PrintLine("vID0 NO es igual a 75")]
+	IFELSE (vID0=75)
+	[PRINTLINE("P9: vID0 es igual a 75")]
+	[PRINTLINE("vID0 NO es igual a 75")]
 
-	IfElse (vID0>65)
-	[PrintLine("P10: vID0 es mayor a 75")]
-	[PrintLine("vID0 NO es mayor  a 75")]
+	IFELSE (vID0>65)
+	[PRINTLINE("P10: vID0 es mayor a 75")]
+	[PRINTLINE("vID0 NO es mayor  a 75")]
 
-	Def(vID3, 0)
+	def(vID3, 0)
 	Until
 	[Add(vID3)]
 	[vID3 = 7]
-	PrintLine("P11: vID3 tiene un valor de (7): ", vID3)
+	PRINTLINE("P11: vID3 tiene un valor de (7): ", vID3)
 
 
-	Def(vID4, 10)
-	While [vID4>1]
+	def(vID4, 10)
+	WHILE [vID4>1]
 	[PUT(vID4, Substr(vID4, 1))]
-	PrintLine("P12: vID4 tiene un valor de (1): ", vID4)
+	PRINTLINE("P12: vID4 tiene un valor de (1): ", vID4)
 
 END
 
