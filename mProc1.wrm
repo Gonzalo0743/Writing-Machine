@@ -1,0 +1,328 @@
+#ERR0 -- La primer linea del c¢digo debe ser un comentario	
+		
+	//ERR1 -- La instruccion SET no existe	
+	SET vA1, 5	
+		
+	//ERR2 -- Debe iniciar letra minuscula	
+	Def(@v1, TRUE);	
+		
+	//ERR3 -- Debe iniciar letra minuscula	
+	Def(MiVar1, 5);	
+		
+	//ERR4 -- Minimo son 3 posiciones	
+	Def(mV, FALSE);	
+		
+	//ERR5 -- Maximo son 10 posiciones	
+	Def(mVariable2022, 100);	
+		
+	//ERR6 -- Simbolos permitidos _ y @	
+	Def(mVar#, 100);	
+		
+	//ERR7 -- Simbolos permitidos _ y @	
+	Def(mVar?, TRUE);	
+		
+	//ERR8 -- Debe iniciar letra minuscula	
+	Def(5Var, 5);	
+		
+	//ERR9 -- Debe iniciar letra minuscula	
+	Def(1234, TRUE);	
+		
+	//ERR10 -- Debe iniciar letra minuscula	
+	Def(?dat, FALSE);	
+		
+fin		
+		
+Para mProc1[]		
+	//ERR11 -- No pueden haber dos procedimientos con misma firma	
+		
+	Def(vA12, 5);	
+		
+fin		
+		
+Para MainX		
+	//ERR12 -- Debe existir un procedimiento MAIN	
+	//Corrija eliminando la X de Main	
+		
+	mProc1[];	
+	mProc2[];	
+	mProc3[];	
+	mProc4[];	
+	mProc5[];	
+	mProc6[];	
+	mProc7[];	
+	mProc8[];	
+	mProc9[];	
+	mProc10[];	
+		
+	//ERR12 -- Llama un PROC no existente	
+	mProc11[];	
+		
+fin		
+		
+Para mProc2[]		
+		
+	//ERR13 -- Solo Numeros y l¢gicos	
+	Def(xVar1, Date);	
+		
+	//ERR14 -- Definici¢n tiene dos valores	
+	Def(xVar2, TRUE, 4);	
+		
+	//ERR15 -- Error Semantico Distinto Tipo Datos	
+	Def(xVar3, TRUE);	
+	Put(xVar3, 200);	
+		
+	//ERR16 -- Definici¢n tiene dos valores	
+	Def(xVar4);	
+		
+fin		
+		
+Para mProc3[]		
+		
+	//ERR17 -- Inicializa variable no existente	
+	Put(xVar9000, TRUE);	
+		
+	//ERR18 -- Error Semantico Distinto Tipo Datos	
+	Def(xVar5, 5);	
+	Put(xVar5, FALSE);	
+		
+	//ERR19 -- Retorna valor incorrecto	
+	Def(xVar6, 9);	
+	Put(xVar6, Div(0, 0));	
+		
+	//ERR20 -- Usa variable no existente	
+	Def(xVar7, 10);	
+	Put(xVar7, xVar9000);	
+		
+fin		
+		
+Para mProc4[]		
+		
+	//ERR21 -- Incrementa una variable inexistente	
+	Add(xVar9000);	
+		
+	//ERR22 -- ADD solo tiene dos parametros	
+	Def(xVar8, 1);	
+	Add(xVar8, 1, 2);	
+		
+	//ERR23 -- ADD solo usa numeros	
+	Add(xVar8, True);	
+		
+fin		
+		
+Para mProc5[]		
+		
+	//ERR24 -- Usa ContinueUp con variable inexistente	
+	ContinueUp xVar9000;	
+		
+	//ERR25 -- Valor incorrecto	
+	ContinueUp (0/0);	
+		
+	//ERR26 -- Usa ContinueDown con variable inexistente	
+	ContinueDown xVar9000;	
+		
+	//ERR27 -- Valor incorrecto	
+	ContinueDown (0/0);	
+		
+	//ERR28 -- Usa ContinueRight con variable inexistente	
+	ContinueRight xVar9000;	
+		
+	//ERR29 -- Valor incorrecto	
+	ContinueRight (0/0);	
+		
+	//ERR30 -- Usa Continueleft con variable inexistente	
+	ContinueLeft xVar9000;	
+		
+	//ERR31 -- Valor incorrecto	
+	ContinueLeft (0/0);	
+		
+fin		
+		
+Para mProc6[]		
+		
+	//ERR32 -- POS usa dos parametros	
+	Pos(0,1,2);	
+		
+	//ERR33 -- Operaci¢n invalida	
+	POS(0, (0/0));	
+		
+	//ERR34 -- POS usa numeros	
+	POS(TRUE, 5);	
+		
+	//ERR35 -- POS usa numeros	
+	POS(5, TRUE);	
+		
+	//ERR36 -- POSX usa numeros	
+	PosX TRUE;	
+		
+	//ERR37 -- POSX usa dos parametros	
+	PosX 5,6;	
+		
+	//ERR38 -- Operaci¢n invalida	
+	PosX (5/0);	
+		
+	//ERR39 -- POSY usa numeros	
+	PosY TRUE;	
+		
+	//ERR40 -- POSY usa dos parametros	
+	PosY 5,6;	
+		
+	//ERR41 -- Operaci¢n invalida	
+	PosY (5/0);	
+		
+fin		
+		
+Para mProc7[]		
+		
+	//ERR42 UseColor -- usa numeros	
+	UseColor TRUE;	
+		
+	//ERR43 -- UseColor solo usa 1 y 2	
+	UseColor 0;	
+		
+	//ERR44 -- Down no usa parametros	
+	Down 5;	
+		
+	//ERR45 -- Up no usa parametros	
+	Up 990;	
+		
+	//ERR46 -- Beginning no usa parametros	
+	Beginning 7;	
+		
+	//ERR47 -- Speed usa un parametro	
+	Speed;	
+		
+	//ERR48 -- Speed usa un parametro	
+	Speed 3,4;	
+		
+	//ERR49 -- Spped usa numeros	
+	Speed TRUE;	
+		
+fin		
+		
+Para mProc8[]		
+		
+	//ERR50 -- Run debe tener instrucciones	
+	Run [ ];	
+		
+	//ERR51 -- Run debe tener instrucciones	
+	Run [ 1, 2 ];	
+		
+	//ERR52 -- Repeat usa numeros	
+	Repeat TRUE  [PoxY 10; ContinueRight 9;];	
+		
+	//ERR52 -- Repeat usa numeros	
+	Repeat    [PoxY 10; ContinueRight 9;];	
+		
+	//ERR53 -- Repeat tiene instrucciones	
+	Repeat 7  [ ];	
+		
+	//ERR54 -- SI sin condici¢n	
+	SI  [PoxY 10; ContinueRight 9;];	
+		
+	//ERR55 -- SI sin cuerpo	
+	SI (10>2) [  ];	
+		
+	//ERR56 -- IFElse sin condici¢n	
+	IfElse [Down; PosX 100;]  [PosY 10; ContinueRight 9;];	
+		
+	//ERR57 -- IFElse sin cuerpo	
+	IfElse (var1=1) [PosY 10; ContinueRight 9;];	
+		
+	//ERR57 -- IFElse con mas cuerpos	
+	IfElse (var1=1) [Down; PosX 100;] [PosY 10; ContinueRight 9;] [Down; PosX 100;] ;	
+		
+	//ERR58 -- Until sin condicion	
+	Until   [Down; PosX 100;];	
+		
+	//ERR59 -- Until Sin cuerpo	
+	Until   [bucle = 1];	
+		
+	//ERR60 -- While sin condicion	
+	While [Up; PosY 90];	
+		
+	//ERR61 -- While sin cuerpo	
+	While [bucle=1];	
+		
+fin		
+		
+Para mProc9[]		
+		
+	Def(xVar01, TRUE);	
+		
+	//ERR62 -- Equal tiene dos parametros	
+	Put(xVar01,  Equal(10))	
+		
+	//ERR63 -- Equal tiene dos parametros	
+	Put(xVar01,  Equal(10, 3,5 ))	
+		
+	//ERR64 -- AND tiene dos parametros	
+	Put(xVar01,  And(10))	
+		
+	//ERR65 -- AND tiene dos parametros	
+	Put(xVar01,  And(10, 3,5 ))	
+		
+	//ERR66 -- OR tiene dos parametros	
+	Put(xVar01,  Or(10))	
+		
+	//ERR66 -- OR tiene dos parametros	
+	Put(xVar01,  Or(10, 3,5 ))	
+		
+	//ERR67 -- Greater tiene dos parametros	
+	Put(xVar01,  Greater(10))	
+		
+	//ERR68 -- Greater tiene dos parametros	
+	Put(xVar01,  Greater(10, 3,5 ))	
+		
+	//ERR69 -- Smaller tiene dos parametros	
+	Put(xVar01,  Smaller(10))	
+		
+	//ERR70 -- Smaller tiene dos parametros	
+	Put(xVar01,  Smaller(10, 3,5 ))	
+		
+fin		
+		
+Para mProc10[]		
+	//ERR71 -- Substr usa dos parametros numericos	
+	PosX Substr(100);	
+		
+	//ERR72 -- Substr usa dos parametros numericos	
+	PosX Substr(100, 45, 100);	
+		
+	//ERR73 -- Substr usa dos parametros numericos	
+	PosX Substr(100, TRUE);	
+		
+	//ERR74 -- Random usa valor numerico	
+	PosX Random(TRUE);	
+		
+	//ERR75 -- Mult usa dos parametros numericos	
+	PosX Mult(100);	
+		
+	//ERR76 -- Mult usa dos parametros numericos	
+	PosX Mult(100, 45, 100);	
+		
+	//ERR77 -- Mult usa dos parametros numericos	
+	PosX Mult(100, TRUE);	
+		
+	//ERR78 -- Div usa dos parametros numericos	
+	PosX Div(100);	
+		
+	//ERR79 -- Div usa dos parametros numericos	
+	PosX Div(100, 45, 100);	
+		
+	//ERR80 -- Div usa dos parametros numericos	
+	PosX Div(100, TRUE);	
+		
+	//ERR81 -- Sum usa dos parametros numericos	
+	PosX Sum(100);	
+		
+	//ERR82 -- Sum usa dos parametros numericos	
+	PosX Sum(100, 45, 100);	
+		
+	//ERR83 -- Sum usa dos parametros numericos	
+	PosX Sum(100, TRUE);	
+		
+	//ERR84 -- PrintLine debe tener algo para imprimir	
+	PrintLine();	
+		
+	//ERR85 -- PrintLine no puede tener un PrintLine dentro	
+	PrintLine(PrintLine());	

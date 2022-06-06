@@ -1,0 +1,14 @@
+FUN prueba(element)
+	def(ra,element)
+	PRINTLINE(ra)
+	END
+
+prueba(5)
+
+
+
+
+
+
+
+
