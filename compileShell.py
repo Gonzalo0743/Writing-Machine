@@ -5,8 +5,7 @@ alive = True
 
 
 while alive:
-	# text = input('WritingMachine > ')
-	# if text.strip() == "": continue
+
 	input_memory = open("memory.txt", "r")
 	file = input_memory.read()
 

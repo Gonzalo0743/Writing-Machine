@@ -28,11 +28,18 @@ def open_file():
         set_file_path(path)
 
 
-def save_as():
+def save():
     if file_path == '':
         path = asksaveasfilename(filetypes=[('WM Files', '*.wrm')])
     else:
         path = file_path
+    with open(path, 'w') as file:
+        code = editor.get('1.0', END)
+        file.write(code)
+        set_file_path(path)
+
+def save_as():
+    path = asksaveasfilename(filetypes=[('WM Files', '*.wrm')])
     with open(path, 'w') as file:
         code = editor.get('1.0', END)
         file.write(code)
@@ -75,7 +82,7 @@ menu_bar = Menu(compiler)
 
 file_menu = Menu(menu_bar, tearoff=0)
 file_menu.add_command(label='Open', command=open_file)
-file_menu.add_command(label='Save', command=save_as)
+file_menu.add_command(label='Save', command=save)
 file_menu.add_command(label='Save As' , command=save_as)
 file_menu.add_command(label='Exit')
 menu_bar.add_cascade(label='File', menu=file_menu)

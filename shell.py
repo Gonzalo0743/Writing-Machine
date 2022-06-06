@@ -5,8 +5,7 @@ alive = True
 
 
 while alive:
-	# text = input('WritingMachine > ')
-	# if text.strip() == "": continue
+
 	input_memory = open("memory.txt", "r")
 	file = input_memory.read()
 
@@ -16,7 +15,6 @@ while alive:
 
 	if error:
 		print(error.as_string())
-	#Quiza eliminar?
 	elif result:
 		if len(result.elements) == 1:
 			print(repr(result.elements[0]))

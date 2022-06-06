@@ -1,7 +1,3 @@
-#######################################
-# IMPORTS
-#######################################
-
 from strings_with_arrows import *
 
 import string
@@ -11,19 +7,14 @@ import random
 
 import servo
 
-#######################################
-# CONSTANTS
-#######################################
+# Constants::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 DIGITS = '0123456789'
 LETTERS = string.ascii_letters
 LETTERS_DIGITS = LETTERS + DIGITS
 
 
-#######################################
-# ERRORS
-#######################################
-
+# Errors:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class Error:
     def __init__(self, pos_start, pos_end, error_name, details):
         self.pos_start = pos_start
@@ -77,10 +68,7 @@ class RTError(Error):
         return 'Traceback (most recent call last):\n' + result
 
 
-#######################################
-# POSITION
-#######################################
-
+# Position::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class Position:
     def __init__(self, idx, ln, col, fn, ftxt):
         self.idx = idx
@@ -103,10 +91,7 @@ class Position:
         return Position(self.idx, self.ln, self.col, self.fn, self.ftxt)
 
 
-#######################################
-# TOKENS
-#######################################
-
+# Tokens:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 TT_INT = 'INT'
 TT_FLOAT = 'FLOAT'
 TT_STRING = 'STRING'
@@ -175,10 +160,7 @@ class Token:
         return f'{self.type}'
 
 
-#######################################
-# LEXER
-#######################################
-
+# Lexer::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class Lexer:
     def __init__(self, fn, text):
         self.fn = fn
@@ -373,10 +355,7 @@ class Lexer:
         self.advance()
 
 
-#######################################
-# NODES
-#######################################
-
+# Nodes::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class NumberNode:
     def __init__(self, tok):
         self.tok = tok
@@ -531,10 +510,7 @@ class BreakNode:
         self.pos_end = pos_end
 
 
-#######################################
-# PARSE RESULT
-#######################################
-
+# Parse result::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class ParseResult:
     def __init__(self):
         self.error = None
@@ -569,10 +545,7 @@ class ParseResult:
         return self
 
 
-#######################################
-# PARSER
-#######################################
-
+# Parser:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class Parser:
     def __init__(self, tokens):
         self.tokens = tokens
@@ -601,8 +574,6 @@ class Parser:
                 "Token cannot appear after previous tokens"
             ))
         return res
-
-    ###################################
 
     def statements(self):
         res = ParseResult()
@@ -1277,8 +1248,6 @@ class Parser:
             False
         ))
 
-    ###################################
-
     def bin_op(self, func_a, ops, func_b=None):
         if func_b == None:
             func_b = func_a
@@ -1298,10 +1267,7 @@ class Parser:
         return res.success(left)
 
 
-#######################################
-# RUNTIME RESULT
-#######################################
-
+# Runtime result::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class RTResult:
     def __init__(self):
         self.reset()
@@ -1355,10 +1321,7 @@ class RTResult:
         )
 
 
-#######################################
-# VALUES
-#######################################
-
+# Values:::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class Value:
     def __init__(self):
         self.set_pos()
@@ -1444,11 +1407,11 @@ class Number(Value):
         else:
             return None, Value.illegal_operation(self)
 
-    #Operaciones pyfirmata
+    # Pyfirmata
     def continueRight(self):
         if isinstance(self, Number):
             # servo.continueRight(self.value)
-            return Number(self.value).set_context(self.context) , None
+            return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
 
@@ -1489,7 +1452,7 @@ class Number(Value):
 
     def pos(self, other):
         if isinstance(other, Number):
-            # servo.pos(self.value,other.value)
+            # servo.pos(self.value, other.value)
             return Number(self.value).set_context(self.context), None
         else:
             return None, Value.illegal_operation(self)
@@ -1501,8 +1464,7 @@ class Number(Value):
         else:
             return None, Value.illegal_operation(self)
 
-
-    #Operaciones matemáticas
+    # Math operations
     def added_to(self, other):
         if isinstance(other, Number):
             return Number(self.value + other.value).set_context(self.context), None
@@ -1811,18 +1773,11 @@ class BuiltInFunction(BaseFunction):
     def __repr__(self):
         return f"<built-in function {self.name}>"
 
-    #####################################
-
     def execute_print(self, exec_ctx):
         # print(str(exec_ctx.symbol_table.get('value')))
         return RTResult().success(Number.null)
 
     execute_print.arg_names = ['value']
-
-    def execute_print_ret(self, exec_ctx):
-        return RTResult().success(String(str(exec_ctx.symbol_table.get('value'))))
-
-    execute_print_ret.arg_names = ['value']
 
     def execute_input(self, exec_ctx):
         text = input()
@@ -1991,7 +1946,6 @@ class BuiltInFunction(BaseFunction):
 
     execute_run.arg_names = ["fn"]
 
-    # OPERACIONES CREADAS
     def execute_sum(self, exec_ctx):
         value1 = exec_ctx.symbol_table.get("value1")
         value2 = exec_ctx.symbol_table.get("value2")
@@ -2169,7 +2123,7 @@ class BuiltInFunction(BaseFunction):
 
     execute_random.arg_names = ["value1"]
 
-    ###Funciones Pyfirmata
+    ##Pyfirmata
     def execute_continueRight(self, exec_ctx):
         value1 = exec_ctx.symbol_table.get("value1")
 
@@ -2276,19 +2230,19 @@ class BuiltInFunction(BaseFunction):
 
     execute_pos.arg_names = ["value1", "value2"]
 
-    def execute_up(self,exec_ctx):
+    def execute_up(self, exec_ctx):
         # servo.up()
         return RTResult().success(Number.null)
 
     execute_up.arg_names = []
 
-    def execute_down(self,exec_ctx):
+    def execute_down(self, exec_ctx):
         # servo.down()
         return RTResult().success(Number.null)
 
     execute_down.arg_names = []
 
-    def execute_beginning(self,exec_ctx):
+    def execute_beginning(self, exec_ctx):
         # servo.beginning()
         return RTResult().success(Number.null)
 
@@ -2310,7 +2264,6 @@ class BuiltInFunction(BaseFunction):
 
 
 BuiltInFunction.print = BuiltInFunction("print")
-BuiltInFunction.print_ret = BuiltInFunction("print_ret")
 BuiltInFunction.input = BuiltInFunction("input")
 BuiltInFunction.input_int = BuiltInFunction("input_int")
 BuiltInFunction.clear = BuiltInFunction("clear")
@@ -2345,10 +2298,7 @@ BuiltInFunction.beginning = BuiltInFunction("beginning")
 BuiltInFunction.speed = BuiltInFunction("speed")
 
 
-#######################################
-# CONTEXT
-#######################################
-
+# Context::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class Context:
     def __init__(self, display_name, parent=None, parent_entry_pos=None):
         self.display_name = display_name
@@ -2357,10 +2307,7 @@ class Context:
         self.symbol_table = None
 
 
-#######################################
-# SYMBOL TABLE
-#######################################
-
+# Symbol table::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class SymbolTable:
     def __init__(self, parent=None):
         self.symbols = {}
@@ -2379,10 +2326,7 @@ class SymbolTable:
         del self.symbols[name]
 
 
-#######################################
-# INTERPRETER
-#######################################
-
+# Interpreter::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 class Interpreter:
     def visit(self, node, context):
         method_name = f'visit_{type(node).__name__}'
@@ -2391,8 +2335,6 @@ class Interpreter:
 
     def no_visit_method(self, node, context):
         raise Exception(f'No visit_{type(node).__name__} method defined')
-
-    ###################################
 
     def visit_NumberNode(self, node, context):
         return RTResult().success(
@@ -2635,17 +2577,13 @@ class Interpreter:
         return RTResult().success_break()
 
 
-#######################################
-# RUN
-#######################################
-
+# Run::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 global_symbol_table = SymbolTable()
 global_symbol_table.set("NULL", Number.null)
 global_symbol_table.set("FALSE", Number.false)
 global_symbol_table.set("TRUE", Number.true)
 global_symbol_table.set("MATH_PI", Number.math_PI)
 global_symbol_table.set("PRINTLINE", BuiltInFunction.print)
-global_symbol_table.set("PRINT_RET", BuiltInFunction.print_ret)
 global_symbol_table.set("INPUT", BuiltInFunction.input)
 global_symbol_table.set("INPUT_INT", BuiltInFunction.input_int)
 global_symbol_table.set("CLEAR", BuiltInFunction.clear)
